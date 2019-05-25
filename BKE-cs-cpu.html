@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VS Computer | Boter-kaas-en-eieren</title>
+    <link rel="stylesheet" href="stylesgame.css">
+</head>
+
+<body>
+    <div class="banner">
+        <p>Boter-kaas-en-eieren</p>
+    </div>
+    <div class="container">
+        <div class="links">
+            <div id="winnaar"></div>
+            <button id="resetbtn" onclick="nieuwSpel()">start nieuw spel</button>
+        </div>
+        <div class="midden">
+            <table>
+                <tr>
+                    <td id="r1k1" onclick="doeZet(this)"></td>
+                    <td id="r1k2" onclick="doeZet(this)"></td>
+                    <td id="r1k3" onclick="doeZet(this)"></td>
+                </tr>
+
+                <tr>
+                    <td id="r2k1" onclick="doeZet(this)"></td>
+                    <td id="r2k2" onclick="doeZet(this)"></td>
+                    <td id="r2k3" onclick="doeZet(this)"></td>
+                </tr>
+
+                <tr>
+                    <td id="r3k1" onclick="doeZet(this)"></td>
+                    <td id="r3k2" onclick="doeZet(this)"></td>
+                    <td id="r3k3" onclick="doeZet(this)"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="rechts">
+
+        </div>
+    </div>
+    <footer class="endo">
+        <div id="copyr">
+            &copy;2018 Ontworpen en ontwikkelt door TiZaMo
+        </div>
+    </footer>
+</body>
+<script>
+    var beurt = "X";
+    var aantalBeurten;
+    nieuwSpel();
+
+    function nieuwSpel() {
+        for (rij = 1; rij <= 3; rij++) {
+            for (kolom = 1; kolom <= 3; kolom++) {
+                document.getElementById("r" + rij + "k" + kolom).innerHTML = "";
+            }
+        }
+        beurt = "X";
+        aantalBeurten = 0;
+        winnaar = false;
+        gelijkSpel = false;
+        document.getElementById("winnaar").innerHTML = "";
+    }
+
+    function doeZet(cel) {
+        if (!winnaar) {
+            if (cel.innerHTML == "") {
+                aantalBeurten++;
+                cel.innerHTML = beurt;
+
+                bepaalWinnaar();
+                bepaalGelijkSpel();
+                beurt = "O";
+
+                if (!winnaar && !gelijkSpel) {
+                    computerzet();
+                    bepaalWinnaar();
+                    bepaalGelijkSpel();
+                    aantalBeurten++;
+                }
+                beurt = "X";
+            }
+        }
+    }
+
+    var winnaar = false;
+    var gelijkSpel = false;
+
+    function computerzet() {
+        rij = Math.floor((Math.random() * 3) + 1);
+        kolom = Math.floor((Math.random() * 3) + 1);
+        celid = "r" + rij + "k" + kolom;
+        while (document.getElementById(celid).innerHTML != "") {
+            rij = Math.floor((Math.random() * 3) + 1);
+            kolom = Math.floor((Math.random() * 3) + 1);
+            celid = "r" + rij + "k" + kolom;
+        }
+        document.getElementById(celid).innerHTML = beurt;
+    }
+
+    function bepaalGelijkSpel() {
+        if (!winnaar && aantalBeurten == 9) {
+            document.getElementById("winnaar").innerHTML = "Gelijk Spel!";
+            gelijkSpel = "true";
+        }
+    }
+
+    function bepaalWinnaar() {
+        veld1 = document.getElementById("r1k1").innerHTML;
+        veld2 = document.getElementById("r1k2").innerHTML;
+        veld3 = document.getElementById("r1k3").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + " heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r2k1").innerHTML;
+        veld2 = document.getElementById("r2k2").innerHTML;
+        veld3 = document.getElementById("r2k3").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + ""
+            " + heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r3k1").innerHTML;
+        veld2 = document.getElementById("r3k2").innerHTML;
+        veld3 = document.getElementById("r3k3").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + " heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r1k1").innerHTML;
+        veld2 = document.getElementById("r2k2").innerHTML;
+        veld3 = document.getElementById("r3k3").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + " heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r1k3").innerHTML;
+        veld2 = document.getElementById("r2k2").innerHTML;
+        veld3 = document.getElementById("r3k1").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + "heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r1k1").innerHTML;
+        veld2 = document.getElementById("r2k1").innerHTML;
+        veld3 = document.getElementById("r3k1").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + " heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r1k2").innerHTML;
+        veld2 = document.getElementById("r2k2").innerHTML;
+        veld3 = document.getElementById("r3k2").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + " heeft gewonnen";
+            winnaar = true;
+        }
+        veld1 = document.getElementById("r1k3").innerHTML;
+        veld2 = document.getElementById("r2k3").innerHTML;
+        veld3 = document.getElementById("r3k3").innerHTML;
+
+        if (veld1 == beurt && veld2 == beurt && veld3 == beurt) {
+            document.getElementById("winnaar").innerHTML = beurt + "" + " heeft gewonnen";
+            winnaar = true;
+        }
+    }
+</script>
+</html>
